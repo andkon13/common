@@ -9,6 +9,7 @@
 namespace app\common\grid;
 
 use yii\grid\DataColumn;
+use yii\helpers\Html;
 
 /**
  * Class StatusColumn
@@ -26,7 +27,7 @@ class StatusColumn extends DataColumn
      * @param mixed $key
      * @param int   $index
      *
-     * @return mixed
+     * @return string|null
      */
     protected function renderDataCellContent($model, $key, $index)
     {
@@ -34,5 +35,21 @@ class StatusColumn extends DataColumn
         if (array_key_exists($id, $this->data)) {
             return $this->data[$id];
         }
+
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     * @return string
+     */
+    protected function renderFilterCellContent()
+    {
+        return Html::activeDropDownList(
+            $this->grid->filterModel,
+            $this->attribute,
+            $this->data,
+            ['class' => 'form-control', 'prompt' => '---']
+        );
     }
 }
