@@ -17,44 +17,6 @@ use Yii;
  */
 class ActiveRecord extends \andkon\yii2actions\ActiveRecord
 {
-
-    /**
-     * Ищет модель или Создает модель с переданными атрибутами
-     *
-     * @param array $attributes
-     *
-     * @return ActiveRecord
-     */
-    public static function findOrCreate($attributes)
-    {
-        $model = self::findOrInit($attributes);
-        if ($model->getIsNewRecord()) {
-            $model->save();
-        }
-
-        return $model;
-    }
-
-    /**
-     * Ищет модель по атрибутам или инициализирует новую с переданными атрибутами
-     *
-     * @param array $attributes
-     *
-     * @return ActiveRecord
-     */
-    public static function findOrInit($attributes)
-    {
-        $model = self::find()->where($attributes)->one();
-        if (!$model) {
-            /** @var \andkon\yii2actions\ActiveRecord $model */
-            $model = get_called_class();
-            $model = new $model();
-            $model->setAttributes($attributes);
-        }
-
-        return $model;
-    }
-
     /**
      * Удаляет записи where $key[0] = $params[0] and $key[1] not in ($params[1])
      *

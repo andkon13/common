@@ -53,7 +53,9 @@ class LinkColumn extends DataColumn
                     }
                 }
 
-                $url['id'] = $model->id;
+                if (empty($url['id'])) {
+                    $url['id'] = $model->id;
+                }
             }
 
             $url = ($url == '#') ? '#' : \Yii::$app->getUrlManager()->createUrl($url);
