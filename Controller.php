@@ -61,11 +61,13 @@ class Controller extends \andkon\yii2actions\Controller
      *
      * @param array $result
      * @param bool  $returnCount
+     *
+     * @return string
      */
     protected function setResponse($result, $returnCount = false)
     {
         $response         = $this->getResponse();
-        $response->format = $response::FORMAT_JSON;
+        $response->format = $response::FORMAT_RAW;
         if ($returnCount && !isset($result['errorCode'])) {
             $tmp                  = [];
             $tmp['values']        = $result;
@@ -73,7 +75,8 @@ class Controller extends \andkon\yii2actions\Controller
             $result               = $tmp;
         }
 
-        $response->data = $result;
+        $this->getResponse()->data = $result;
+        return $this->json_encode($result);
     }
 
     /**
@@ -94,5 +97,21 @@ class Controller extends \andkon\yii2actions\Controller
         }
 
         return parent::getPost($name, $returnIsNull);
+    }
+
+    /**
+     * Перекодирует данные для вывода в utf
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    protected function json_encode($data)
+    {
+        return preg_replace_callback('/\\\\u([0-9a-f]{4})/i',
+            function ($val) {
+                return mb_decode_numericentity('&#' . intval($val[1], 16) . ';', array(0, 0xffff, 0, 0xffff), 'utf-8');
+            }, json_encode($data)
+        );
     }
 }
