@@ -20,6 +20,7 @@ class ActiveForm extends \yii\widgets\ActiveForm
 {
     public $model = null;
     public $fieldClass = '\app\common\helpers\ActiveField';
+    public $fieldConfig = ['class' => '\app\common\helpers\ActiveField'];
 
     /**
      * @inheritdoc
