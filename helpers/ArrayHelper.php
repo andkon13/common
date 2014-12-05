@@ -29,11 +29,6 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
      */
     public static function listData($models, $keyField = 'id', $valField = 'name')
     {
-        $result = [];
-        foreach ($models as $model) {
-            $result[$model->$keyField] = $model->$valField;
-        }
-
-        return $result;
+        return self::map($models, $keyField, $valField);
     }
 } 
