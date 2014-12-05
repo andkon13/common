@@ -31,4 +31,4 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
     {
         return self::map($models, $keyField, $valField);
     }
-} 
+}
