@@ -23,6 +23,7 @@ use yii\helpers\Json;
  * </code>
  *
  * @package common\traits
+ * @link https://github.com/andkon13/common/blob/master/traits/ArrayFields.php
  */
 trait ArrayFields
 {
